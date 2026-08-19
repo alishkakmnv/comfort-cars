@@ -37,12 +37,6 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="ru" className={`${manrope.variable} h-full antialiased`}>
-      <head>
-        {/* Без JS ревилы не отыграют — показываем контент как есть. */}
-        <noscript>
-          <style>{`[data-reveal]{transform:none!important}[data-reveal-frame]{clip-path:none!important}`}</style>
-        </noscript>
-      </head>
       <body suppressHydrationWarning className="min-h-full flex flex-col">
         {children}
       </body>
