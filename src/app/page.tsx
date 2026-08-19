@@ -1,3 +1,4 @@
+import { ScrollReset } from "@/components/scroll-reset";
 import { SiteHeader } from "@/components/site-header";
 import { Hero } from "@/components/hero";
 import { Terms } from "@/components/terms";
@@ -47,6 +48,7 @@ function StructuredData() {
 export default function Page() {
   return (
     <>
+      <ScrollReset />
       <SiteHeader />
       <main className="flex-1">
         <Hero />

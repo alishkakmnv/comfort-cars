@@ -9,7 +9,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-cinema pt-16"
+      className="hero-viewport relative flex flex-col justify-end overflow-hidden bg-cinema pt-16"
     >
       {stage.photo ? (
         <>

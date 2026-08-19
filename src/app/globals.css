@@ -109,6 +109,8 @@
 html {
   background-color: var(--color-cinema);
   -webkit-text-size-adjust: 100%;
+  /* браузер не должен «докручивать» страницу, пока догружаются фото и шрифт */
+  overflow-anchor: none;
 }
 
 body {
@@ -144,6 +146,12 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* 100svh понимают не все встроенные браузеры — сначала vh, потом уточнение */
+@utility hero-viewport {
+  min-height: 100vh;
+  min-height: 100svh;
 }
 
 @utility container-page {
