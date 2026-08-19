@@ -148,10 +148,15 @@ body {
   }
 }
 
-/* 100svh понимают не все встроенные браузеры — сначала vh, потом уточнение */
-@utility hero-viewport {
+/* 100svh знают не все встроенные браузеры мессенджеров — базой идёт vh */
+.hero-viewport {
   min-height: 100vh;
-  min-height: 100svh;
+}
+
+@supports (min-height: 100svh) {
+  .hero-viewport {
+    min-height: 100svh;
+  }
 }
 
 @utility container-page {
