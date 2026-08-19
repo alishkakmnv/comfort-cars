@@ -1,26 +1,160 @@
 @import "tailwindcss";
 
+/* ============================================================
+   COMFORT AUTO RENT — design tokens
+   База: DESIGN.md (Lamborghini). Две подмены из DESIGN_ADAPT.md:
+   1) Giallo yellow -> accent #5a9e3f (зелёный из лого)
+   2) LamboType      -> Manrope
+   Все радиусы 0. Ноль теней. Ноль градиентов.
+   ============================================================ */
+
+@theme {
+  /* --- Цвет: акцент (единственный хроматический хит на экран) --- */
+  --color-accent: #59993e;
+  --color-accent-deep: #3f7a2b;
+
+  /* --- Цвет: нейтрали / поверхности --- */
+  --color-cinema: #0a0a0a;
+  --color-ink: #000000;
+  --color-carbon-deep: #181818;
+  --color-carbon-card: #141414;
+  --color-carbony: #202020;
+  --color-anvil: #313131;
+  --color-border-dark: #494949;
+  --color-steel: #7d7d7d;
+  --color-ash: #969696;
+  --color-marble: #f5f5f5;
+  --color-canvas: #ffffff;
+  --color-off-white: #e8e8e6;
+
+  /* --- Шрифт --- */
+  --font-manrope:
+    var(--font-manrope-src), ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* --- Типографическая шкала (DESIGN.md, трекинг ужат под Manrope) --- */
+  --text-caption: 0.625rem; /* 10px */
+  --text-caption--line-height: 1.5;
+  --text-caption--letter-spacing: 0.1em;
+  --text-caption--font-weight: 500;
+
+  --text-label: 0.75rem; /* 12px */
+  --text-label--line-height: 1.5;
+  --text-label--letter-spacing: 0.1em;
+  --text-label--font-weight: 500;
+
+  --text-body: 1rem; /* 16px */
+  --text-body--line-height: 1.5;
+  --text-body--letter-spacing: 0.01em;
+  --text-body--font-weight: 400;
+
+  --text-subheading: 1.125rem; /* 18px */
+  --text-subheading--line-height: 1.5;
+  --text-subheading--letter-spacing: 0.01em;
+  --text-subheading--font-weight: 500;
+
+  --text-heading-sm: 1.6875rem; /* 27px */
+  --text-heading-sm--line-height: 1.37;
+  --text-heading-sm--letter-spacing: 0.02em;
+  --text-heading-sm--font-weight: 700;
+
+  --text-heading: 2rem; /* 32px */
+  --text-heading--line-height: 1.38;
+  --text-heading--letter-spacing: 0.02em;
+  --text-heading--font-weight: 700;
+
+  --text-heading-lg: 2.5rem; /* 40px */
+  --text-heading-lg--line-height: 1.19;
+  --text-heading-lg--letter-spacing: 0.015em;
+  --text-heading-lg--font-weight: 700;
+
+  --text-display: 3.375rem; /* 54px */
+  --text-display--line-height: 1.13;
+  --text-display--letter-spacing: 0.012em;
+  --text-display--font-weight: 700;
+
+  --text-display-lg: 5rem; /* 80px */
+  --text-display-lg--line-height: 1;
+  --text-display-lg--letter-spacing: 0.01em;
+  --text-display-lg--font-weight: 700;
+
+  --text-hero: 7.5rem; /* 120px */
+  --text-hero--line-height: 0.92;
+  --text-hero--letter-spacing: 0.005em;
+  --text-hero--font-weight: 700;
+
+  /* --- Шкала отступов ---
+     База Tailwind 4px не трогаем: 8px-сетка DESIGN.md берётся чётными шагами
+     (2=8, 4=16, 6=24, 8=32, 10=40, 12=48, 16=64, 20=80). Переопределение
+     --spacing на 8px удваивает ВСЕ утилиты и ломает ритм. */
+
+  /* --- Радиусы: hard edges, non-negotiable --- */
+  --radius-none: 0px;
+}
+
+/* Адаптивные размеры display-типографики: потолок = токен из DESIGN.md */
+@theme {
+  --text-fluid-hero: clamp(2.5rem, 6.6vw, 7.5rem);
+  --text-fluid-display-lg: clamp(2.25rem, 6.5vw, 5rem);
+  --text-fluid-display: clamp(1.875rem, 4.6vw, 3.375rem);
+  --text-fluid-heading-lg: clamp(1.625rem, 3.4vw, 2.5rem);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --page-max-width: 1440px;
+  --section-gap: 80px;
+  --card-padding: 24px;
+  --element-gap: 24px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background-color: var(--color-cinema);
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-cinema);
+  color: var(--color-off-white);
+  font-family: var(--font-manrope);
+  font-weight: 400;
+  font-synthesis-weight: none;
+}
+
+/* Hard edges везде — страховка от случайного скругления */
+*,
+*::before,
+*::after {
+  border-radius: 0;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-cinema);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: var(--page-max-width);
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+@media (min-width: 1024px) {
+  .container-page {
+    padding-inline: 48px;
+  }
 }

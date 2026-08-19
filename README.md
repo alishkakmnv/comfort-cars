@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Comfort Auto Rent — демо-сайт
 
-## Getting Started
+Аренда авто в Алматы. Next.js App Router + TypeScript + Tailwind v4 + Framer Motion.
 
-First, run the development server:
+Дизайн-система — `DESIGN.md` (Lamborghini-референс) с двумя подменами из `DESIGN_ADAPT.md`:
+акцент Giallo → зелёный `#5a9e3f`, LamboType → Manrope. Контент — `CLAUDE.md`.
+
+## Запуск
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # прод-сборка
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Где что лежит
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Что | Файл |
+|---|---|
+| Цвет, типографика, шкала — все токены | `src/app/globals.css` (`@theme`) |
+| Контакты, флот, цены, УТП, шаги | `src/lib/site.ts` |
+| Секции страницы | `src/components/*.tsx` |
+| Порядок секций | `src/app/page.tsx` |
+| Обработка фото машин | `scripts/process-fleet.mjs` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Хардкода цвета/размера/телефона по компонентам нет: правится в токенах и `site.ts`.
 
-## Learn More
+## Фото флота
 
-To learn more about Next.js, take a look at the following resources:
+Все 7 машин обработаны и лежат в `public/fleet/`. Пересобрать — `npm run fleet`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Исходник (скриншот карточки 2ГИС) кладётся в `raw-photos/`.
+2. Файл сопоставляется с моделью в `raw-photos/fleet.map.json`:
+   `{ "снимок.png": { "slug": "kia-k5-2021", "focus": 0.53, "side": { "left": 0.09 } } }`
+   - `focus` — доля высоты фотозоны, на которой стоит центр машины (по умолчанию 0.58);
+   - `side.left` — срез стрелки карусели, если она попала в кадр (обычно 0.07–0.1).
+3. `npm run fleet` — находит фотозону (панель с подписью и скроллбар внизу режутся
+   автоматически), кадрирует в 16:10, нормализует до 1600px, mozjpeg 82.
+4. `photo: "/fleet/<slug>.jpg"` в `src/lib/site.ts`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Если у машины `photo: null`, на месте кадра встаёт плоская плашка того же аспекта —
+сетка не прыгает.
 
-## Deploy on Vercel
+## Логотип
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`npm run logo` — снимает лого с чёрной подложки на прозрачность (alpha = яркость,
+цвет = unpremultiply) и режет на два ассета:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `public/brand/logo-full.png` — лок-ап целиком, в футере;
+- `public/brand/logo-mark.png` — только знак, в шапке.
+
+Ассеты рассчитаны на тёмные поверхности: белые элементы на светлом фоне исчезнут.
+
+## Добавить машину
+
+Один объект в массив `fleet` в `src/lib/site.ts`. Сетка, разметка для поиска и счётчик
+«N машин в наличии» подхватят автоматически.
+
+## Правила, которые нельзя нарушать
+
+- Все радиусы 0px, ноль теней, ноль градиентов.
+- Зелёный акцент — один элемент на экран (обычно primary CTA).
+- Заголовки UPPERCASE, иерархия размером; Manrope 600–700 на display, 400–500 на body.
+- Чередование поверхностей: тёмный hero → светлая полоса → тёмный флот → светлая сетка → тёмный финал.
+- Шкала отступов Tailwind = 4px база; 8px-сетка берётся чётными шагами. `--spacing` не переопределять.
+- Перед коммитом — анти-слоп grep из `prompt.md` должен давать `CLEAN`.
+
+## Не заполнено
+
+- Ссылка на Instagram (`contacts.instagram` = `null`) — блок в футере появится сам, как только будет URL.
+- В `raw-photos/` лежат ещё два кадра Hyundai Accent (чёрный и серый) — если в парке это
+  отдельные машины, их можно добавить в `fleet` и сопоставить в `fleet.map.json`.
+
+## Данные, требующие сверки с клиентом
+
+- График: стоит **круглосуточно** (по скриншоту из WhatsApp «Открыто круглосуточно»),
+  хотя карточка 2ГИС показывала 09:00–24:00.
+- Цены сверены с подписями под фото: 20 000 / 23 000 / 35 000 / 38 000 ₸ в сутки.
