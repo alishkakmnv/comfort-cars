@@ -10,8 +10,7 @@ export const contacts = {
   phoneHuman: "+7 705 307 00 09",
   phoneHref: "tel:+77053070009",
   whatsapp: "https://wa.me/77053070009",
-  /** Ссылку на профиль клиент ещё не прислал — блок соцсетей рендерится без неё. */
-  instagram: null as string | null,
+  instagram: "https://www.instagram.com/comfort_autorent" as string | null,
   addressShort: "БЦ Satpayev, Ораза Жандосова, 45",
   addressFull:
     "БЦ Satpayev, ул. Ораза Жандосова, 45, каб. 205, 2 этаж, Бостандыкский район, Алматы, 050006",

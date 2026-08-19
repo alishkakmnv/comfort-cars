@@ -11,7 +11,7 @@ export function Terms() {
           eyebrow="Условия"
           title={
             <>
-              НА ЧЁМ МЫ
+              НА ЧЁМ МЫ{" "}
               <br />
               НЕ ЭКОНОМИМ
             </>

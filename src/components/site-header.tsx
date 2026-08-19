@@ -43,7 +43,7 @@ export function SiteHeader() {
           <span className="flex items-baseline gap-2">
             <span className="text-subheading font-bold uppercase tracking-[0.06em] text-off-white">
               {contacts.brandShort}
-            </span>
+            </span>{" "}
             <span className="hidden text-caption uppercase text-steel sm:inline">
               {contacts.brandMark}
             </span>

@@ -10,7 +10,7 @@ export function FleetGrid() {
     <section id="fleet" className="bg-cinema py-20 lg:py-[100px]">
       <div className="container-page">
         <SectionHeading
-          eyebrow={`${fleet.length} машин в наличии`}
+          eyebrow="Эконом · Стандарт · Комфорт · Кроссовер"
           title="НАШ ПАРК"
           link={{ href: contacts.whatsapp, label: "УТОЧНИТЬ СВОБОДНЫЕ ДАТЫ" }}
         />

@@ -35,8 +35,10 @@ export function Hero() {
           </TextReveal>
 
           <h1 className="text-fluid-hero font-bold uppercase leading-[0.92] tracking-[0.005em] text-off-white">
-            <TextReveal as="span" immediate delay={0.08}>АРЕНДА</TextReveal>
-            <TextReveal as="span" immediate delay={0.16}>АВТО В</TextReveal>
+            {/* {" "} между строками: CSS его схлопывает, а textContent
+                и буфер обмена получают нормальные пробелы между словами */}
+            <TextReveal as="span" immediate delay={0.08}>АРЕНДА</TextReveal>{" "}
+            <TextReveal as="span" immediate delay={0.16}>АВТО В</TextReveal>{" "}
             <TextReveal as="span" immediate delay={0.24}>АЛМАТЫ</TextReveal>
           </h1>
 

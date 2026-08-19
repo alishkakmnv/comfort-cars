@@ -15,7 +15,7 @@ export function DriverBanner() {
               </p>
             </TextReveal>
             <h2 className="text-fluid-display-lg font-bold uppercase leading-none tracking-[0.01em] text-off-white">
-              <TextReveal as="span" delay={0.06}>САДИТЕСЬ</TextReveal>
+              <TextReveal as="span" delay={0.06}>САДИТЕСЬ</TextReveal>{" "}
               <TextReveal as="span" delay={0.14}>НАЗАД</TextReveal>
             </h2>
           </div>
